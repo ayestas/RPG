@@ -37,10 +37,14 @@ Engine::Engine() {
 Engine::~Engine() {
 	delete this->window;
 
-	while (this->states.empty()) {
+	while (!this->states.empty()) {
 		delete this->states.top();
 		this->states.pop();
 	}
+}
+
+void Engine::endApplication() {
+	std::cout << "ENDING APP!!" << "\n";
 }
 
 //FUNCIONES
@@ -58,14 +62,27 @@ void Engine::updateDt() {
 void Engine::update() {
 	this->updateSFMLEvents();
 
-	if (!this->states.empty())
+	if (!this->states.empty()) {
 		this->states.top()->update(this->dt);
+
+		if (this->states.top()->getQuit()) {
+
+			this->states.top()->endState();
+			delete this->states.top();
+			this->states.pop();
+		}
+	}
+	else {
+		this->endApplication();
+		this->window->close();
+	}
+	
 }
 
 void Engine::render() {
 	this->window->clear();
 
-	if (this->states.empty())
+	if (!this->states.empty())
 		this->states.top()->render();
 
 	this->window->display();

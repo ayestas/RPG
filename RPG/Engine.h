@@ -10,6 +10,8 @@ public:
 	~Engine();
 
 	//FUNCIONES
+	void endApplication();
+
 	void updateSFMLEvents();
 	void updateDt();
 	void update();

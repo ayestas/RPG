@@ -2,7 +2,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "GameState.h"
+#include "MainMenuState.h"
 
 class Engine {
 public:
@@ -22,15 +22,22 @@ private:
 	//VARIABLES
 	sf::RenderWindow *window;
 	sf::Event evento;
+	std::vector<sf::VideoMode> videoModes;
+	sf::ContextSettings windowSettings;
+
+	bool fullscreen;
 
 	sf::Clock dtClock;
 	float dt;
 
 	std::stack<State*> states;
+	std::map<std::string, int> supportedKeys;
 
 	//INICIALIZADORES
+	void initVariables();
 	void initWindow();
 	void initStates();
+	void initKeys();
 };
 
 #endif // !ENGINE_H

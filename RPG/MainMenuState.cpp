@@ -2,13 +2,13 @@
 
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* statesP)
 	:State(window, supportedKeys, statesP) {
+
+	this->initVariables();
+	this->initBackground();
+	
 	this->initFonts();
 	this->initKeybinds();
 	this->initBoton();
-
-	//FONDO
-	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-	this->background.setFillColor(sf::Color::Color(47, 34, 53));
 
 }
 
@@ -63,6 +63,21 @@ void MainMenuState::render(sf::RenderTarget* target) {
 	this->renderBotones(target);
 }
 
+void MainMenuState::initVariables() {
+
+}
+
+void MainMenuState::initBackground() {
+	this->background.setSize(sf::Vector2f(static_cast<float>(this->window->getSize().x),
+				static_cast<float>(this->window->getSize().y)));
+
+	if (!this->bgTexture.loadFromFile("Resources/Images/BG_MainMenu.png")) {
+		throw"ERROR!!! al cargar imagen 'BG_MainMenu.png'!!";
+	}
+
+	this->background.setTexture(&this->bgTexture);
+}
+
 void MainMenuState::initKeybinds() {
 	std::ifstream ifs("Config/mainMenuStateKeybinds.ini");
 
@@ -87,11 +102,11 @@ void MainMenuState::initFonts() {
 }
 
 void MainMenuState::initBoton() {
-	this->botones["GAME_STATE_BOTON"] = new Button(325, 300, 150, 50, &this->fontText, "START GAME",
+	this->botones["GAME_STATE_BOTON"] = new Button(380, 300, 150, 50, &this->fontText, "START GAME",
 		sf::Color::Color(250, 179, 169), sf::Color::Color(237, 107, 134), sf::Color::Color(70, 50, 57),
 		sf::Color::Color(70, 50, 57));
 	
-	this->botones["EXIT_STATE_BOTON"] = new Button(325, 375, 150, 50, &this->fontText, "EXIT GAME",
+	this->botones["EXIT_STATE_BOTON"] = new Button(380, 375, 150, 50, &this->fontText, "EXIT GAME",
 		sf::Color::Color(250, 179, 169), sf::Color::Color(237, 107, 134), sf::Color::Color(70, 50, 57),
 		sf::Color::Color(70, 50, 57));
 }

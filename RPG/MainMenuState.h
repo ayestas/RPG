@@ -23,6 +23,8 @@ public:
 
 private:
     //Funciones
+    void initVariables();
+    void initBackground();
     void initKeybinds();
     void initFonts();
     void initBoton();
@@ -30,6 +32,7 @@ private:
     //Variables
     sf::RectangleShape background;
     sf::Font fontText;
+    sf::Texture bgTexture;
 
     std::map<std::string, Button*> botones;
 };

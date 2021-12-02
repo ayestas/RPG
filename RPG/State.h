@@ -5,6 +5,10 @@
 #include "Entity.h"
 
 class State {
+
+private:
+
+
 public:
 	State (sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* statesP);
 	~State ();
